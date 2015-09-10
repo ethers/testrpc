@@ -441,10 +441,23 @@ def eth_getTransactionReceipt(tx_hash):
     block = evm.blocks[bn]
     print(block)
 
+    logs = []
     if bn>0:
         receipt = block.get_receipts()
+        print(receipt)
+        receipt = receipt[0]  # valid assumption?
         if receipt:
-            print(receipt.logs)
+            for i, log in enumerate(receipt.logs):
+                logs.append({
+                    'log': log,
+                    'log_idx': i,
+                    # 'block': block,
+                    # 'txhash': tx.hash,
+                    # 'tx_idx': index,
+                    'pending': False
+                })
+
+    print(logs)
 
     # print(block)
     # self.printLogs(tx_data["blockNumber"])
