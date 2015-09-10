@@ -458,6 +458,15 @@ def eth_getTransactionReceipt(tx_hash):
                 })
 
     print(logs)
+    print('@@@@@@@@@@@@')
+    print(len(logs))
+    for l in logs:
+        print('AA')
+        print(l)
+        print(l['log'])
+        print(l['log'].data.encode('hex'))
+    # print(logs[0])
+    # print(logs[0])
 
     # print(block)
     # self.printLogs(tx_data["blockNumber"])
