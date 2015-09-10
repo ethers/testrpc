@@ -428,6 +428,46 @@ def eth_getTransactionReceipt(tx_hash):
     tx_data = eth_getTransactionByHash(tx_hash)
     block_data = eth_getBlockByNumber(tx_data["blockNumber"], False)
 
+    # print(tx_data)
+    # print('@@@@@@@@@@@@')
+    # print(block_data)
+
+    # block = evm.blocks[tx_data["blockNumber"]]
+    # print(evm.blocks[tx_data["blockNumber"]])
+    print('@@@@@@@@@@@@')
+    bn = format_block_number(tx_data["blockNumber"])
+    print(bn)
+
+    block = evm.blocks[bn]
+    print(block)
+
+    if bn>0:
+        receipt = block.get_receipts()
+        if receipt:
+            print(receipt.logs)
+
+    # print(block)
+    # self.printLogs(tx_data["blockNumber"])
+    # blockNum = 2  #tx_data["blockNumber"]
+    # print(blockNum)
+    # receipt = evm.blocks[blockNum].get_receipts()
+    # # print(receipt)
+    # print(receipt.logs[0])
+
+    # logs = []
+    # for i, log in enumerate(receipt.logs):
+    #     logs.append({
+    #         'log': log,
+    #         'log_idx': i,
+    #         # 'block': block,
+    #         # 'txhash': tx.hash,
+    #         # 'tx_idx': index,
+    #         'pending': False
+    #     })
+    # print(logs)
+    # print(evm.blocks[tx_data["blockNumber"]])
+    # print(block.get_receipts())
+
     return {
         "transactionHash": tx_data["hash"],
         "transactionIndex": tx_data["transactionIndex"],
@@ -437,6 +477,10 @@ def eth_getTransactionReceipt(tx_hash):
         "gasUsed": block_data["gasUsed"],
         "contractAddress": transaction_contract_addresses.get(tx_hash, None)
     }
+
+def printLogs(blockNum):
+    print(evm.blocks[blockNum])
+
 
 def eth_newBlockFilter():
     print "eth_newBlockFilter"
